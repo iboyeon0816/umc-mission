@@ -2,7 +2,7 @@ package umc.spring.domain.mapping;
 
 import lombok.*;
 import umc.spring.domain.Mission;
-import umc.spring.domain.User;
+import umc.spring.domain.Member;
 import umc.spring.domain.common.BaseEntity;
 import umc.spring.domain.enums.MissionStatus;
 
@@ -29,6 +29,6 @@ public class AssignedMission extends BaseEntity {
     private Mission mission;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "USER_ID")
-    private User user;
+    @JoinColumn(name = "MEMBER_ID")
+    private Member member;
 }

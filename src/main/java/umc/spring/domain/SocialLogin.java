@@ -24,6 +24,6 @@ public class SocialLogin extends BaseEntity {
     private PlatformType platformType;
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "USER_ID")
-    private User user;
+    @JoinColumn(name = "MEMBER_ID")
+    private Member member;
 }
