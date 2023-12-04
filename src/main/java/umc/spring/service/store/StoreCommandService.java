@@ -6,5 +6,5 @@ import static umc.spring.web.dto.StoreRequestDTO.*;
 
 public interface StoreCommandService {
 
-    Store saveStore(StoreSaveDTO storeSaveDTO);
+    Store saveStore(SaveStoreDTO saveStoreDTO);
 }

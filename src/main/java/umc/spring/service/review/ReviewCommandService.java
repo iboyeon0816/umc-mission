@@ -6,5 +6,5 @@ import static umc.spring.web.dto.ReviewRequestDTO.*;
 
 public interface ReviewCommandService {
 
-    Review saveReview(Long storeId, ReviewSaveDTO reviewSaveDTO);
+    Review addReview(Long storeId, AddReviewDTO addReviewDTO);
 }

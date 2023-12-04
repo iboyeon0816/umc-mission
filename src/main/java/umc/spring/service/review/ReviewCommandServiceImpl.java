@@ -27,14 +27,14 @@ public class ReviewCommandServiceImpl implements ReviewCommandService {
     private final ReviewRepository reviewRepository;
 
     @Override
-    public Review saveReview(Long storeId, ReviewSaveDTO reviewSaveDTO) {
+    public Review addReview(Long storeId, AddReviewDTO addReviewDTO) {
 
         Store store = storeRepository.findById(storeId)
                 .orElseThrow(() -> new StoreException(ErrorStatus.STORE_NOT_FOUND));
-        Member member = memberRepository.findById(reviewSaveDTO.getMemberId())
+        Member member = memberRepository.findById(addReviewDTO.getMemberId())
                 .orElseThrow(() -> new MemberException(ErrorStatus.MEMBER_NOT_FOUND));
 
-        Review review = ReviewConverter.toReview(reviewSaveDTO);
+        Review review = ReviewConverter.toReview(addReviewDTO);
 
         review.setStore(store);
         review.setMember(member);

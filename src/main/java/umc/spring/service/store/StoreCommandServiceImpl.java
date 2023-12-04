@@ -9,7 +9,7 @@ import umc.spring.domain.Store;
 import umc.spring.exception.ex.FoodTypeException;
 import umc.spring.repository.FoodTypeRepository;
 import umc.spring.repository.StoreRepository;
-import umc.spring.web.dto.StoreRequestDTO.StoreSaveDTO;
+import umc.spring.web.dto.StoreRequestDTO.SaveStoreDTO;
 
 import javax.transaction.Transactional;
 
@@ -22,11 +22,11 @@ public class StoreCommandServiceImpl implements StoreCommandService {
     private final FoodTypeRepository foodTypeRepository;
 
     @Override
-    public Store saveStore(StoreSaveDTO storeSaveDTO) {
+    public Store saveStore(SaveStoreDTO saveStoreDTO) {
 
-        Store store = StoreConverter.toStore(storeSaveDTO);
+        Store store = StoreConverter.toStore(saveStoreDTO);
 
-        FoodType foodType = foodTypeRepository.findById(storeSaveDTO.getFoodTypeId())
+        FoodType foodType = foodTypeRepository.findById(saveStoreDTO.getFoodTypeId())
                 .orElseThrow(() -> new FoodTypeException(ErrorStatus.FOOD_TYPE_NOT_FOUND));
 
         store.setFoodType(foodType);
