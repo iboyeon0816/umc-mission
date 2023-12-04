@@ -42,12 +42,12 @@ public class GlobalRestControllerAdvice extends ResponseEntityExceptionHandler {
     public ResponseEntity<Object> handleConstraintViolationException(
             ConstraintViolationException ex, WebRequest request) {
 
-        String errorCode = ex.getConstraintViolations().stream()
+        String errorMessage = ex.getConstraintViolations().stream()
                 .map(ConstraintViolation::getMessage)
                 .findFirst()
                 .orElseThrow(() -> new RuntimeException("ConstraintViolationException 추출 도중 에러 발생"));
 
-        return handleExceptionInternal(ex, HttpHeaders.EMPTY, request, ErrorStatus.valueOf(errorCode), null);
+        return handleExceptionInternal(ex, HttpHeaders.EMPTY, request, ErrorStatus._BAD_REQUEST, errorMessage);
     }
 
     @ExceptionHandler

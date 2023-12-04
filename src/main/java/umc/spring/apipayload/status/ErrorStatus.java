@@ -15,7 +15,13 @@ public enum ErrorStatus {
     _FORBIDDEN(HttpStatus.FORBIDDEN, "COMMON403", "금지된 요청입니다"),
 
     // FOOD_TYPE
-    FOOD_TYPE_NOT_FOUND(HttpStatus.BAD_REQUEST, "FOODTYPE4001", "해당하는 음식 종류가 없습니다");
+    FOOD_TYPE_NOT_FOUND(HttpStatus.BAD_REQUEST, "FOODTYPE4001", "해당하는 음식 종류가 존재하지 않습니다"),
+
+    // STORE
+    STORE_NOT_FOUND(HttpStatus.BAD_REQUEST, "STORE4001", "해당하는 가게가 존재하지 않습니다"),
+
+    // MEMBER
+    MEMBER_NOT_FOUND(HttpStatus.BAD_REQUEST, "MEMBER4001", "해당하는 멤버가 존재하지 않습니다");
 
     private final HttpStatus httpStatus;
     private final String code;

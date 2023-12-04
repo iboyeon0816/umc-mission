@@ -10,7 +10,7 @@ import javax.validation.constraints.Size;
 public class StoreRequestDTO {
 
     @Getter
-    public static class StoreDTO {
+    public static class StoreSaveDTO {
 
         @NotNull
         @ExistType
