@@ -21,7 +21,11 @@ public enum ErrorStatus {
     STORE_NOT_FOUND(HttpStatus.BAD_REQUEST, "STORE4001", "해당하는 가게가 존재하지 않습니다"),
 
     // MEMBER
-    MEMBER_NOT_FOUND(HttpStatus.BAD_REQUEST, "MEMBER4001", "해당하는 멤버가 존재하지 않습니다");
+    MEMBER_NOT_FOUND(HttpStatus.BAD_REQUEST, "MEMBER4001", "해당하는 멤버가 존재하지 않습니다"),
+    ALREADY_ASSIGNED_MISSION(HttpStatus.BAD_REQUEST, "MEMBER4002", "이미 할당된 미션입니다"),
+
+    // MISSION
+    MISSION_NOT_FOUND(HttpStatus.BAD_REQUEST, "MISSION4001", "해당하는 미션이 존재하지 않습니다");
 
     private final HttpStatus httpStatus;
     private final String code;
