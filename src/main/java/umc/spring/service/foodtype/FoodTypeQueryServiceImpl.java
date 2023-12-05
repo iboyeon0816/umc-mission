@@ -18,8 +18,4 @@ public class FoodTypeQueryServiceImpl implements FoodTypeQueryService {
                 .allMatch(foodTypeRepository::existsById);
     }
 
-    @Override
-    public boolean exist(Long id) {
-        return foodTypeRepository.existsById(id);
-    }
 }

@@ -9,7 +9,7 @@ import java.time.LocalDate;
 public class MissionRequestDTO {
 
     @Getter
-    public static class AddMissionDTO {
+    public static class MissionAddDTO {
         @NotNull
         private Integer price;
         @NotNull
@@ -18,6 +18,12 @@ public class MissionRequestDTO {
         private PointType pointType;
         @NotNull
         private LocalDate deadline;
+    }
+
+    @Getter
+    public static class ChallengeDTO {
+        @NotNull
+        private Long missionId;
     }
 
 }

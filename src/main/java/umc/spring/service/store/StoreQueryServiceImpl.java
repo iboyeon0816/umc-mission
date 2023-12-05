@@ -11,7 +11,7 @@ public class StoreQueryServiceImpl implements StoreQueryService {
     private final StoreRepository storeRepository;
 
     @Override
-    public boolean exist(Long id) {
+    public boolean exists(Long id) {
         return storeRepository.existsById(id);
     }
 

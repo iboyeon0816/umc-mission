@@ -22,7 +22,7 @@ public class MemberResponseDTO {
     @Getter
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class AssignedMissionResultDTO {
+    public static class AssignedMissionDTO {
         Long assignedMissionId;
         LocalDateTime createdAt;
     }

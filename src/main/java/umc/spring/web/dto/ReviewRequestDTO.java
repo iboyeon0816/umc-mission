@@ -9,7 +9,7 @@ import javax.validation.constraints.NotNull;
 public class ReviewRequestDTO {
 
     @Getter
-    public static class AddReviewDTO {
+    public static class ReviewAddDTO {
         @NotNull
         private Long memberId; // 임시
 

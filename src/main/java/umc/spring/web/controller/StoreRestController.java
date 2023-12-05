@@ -12,16 +12,14 @@ import umc.spring.converter.StoreConverter;
 import umc.spring.domain.Mission;
 import umc.spring.domain.Review;
 import umc.spring.domain.Store;
-import umc.spring.service.mission.MissionCommandService;
-import umc.spring.service.review.ReviewCommandService;
 import umc.spring.service.store.StoreCommandService;
 import umc.spring.validation.annotation.ExistStore;
-import umc.spring.web.dto.MissionRequestDTO.AddMissionDTO;
-import umc.spring.web.dto.ReviewResponseDTO.AddReviewResultDTO;
-import umc.spring.web.dto.StoreResponseDTO.SaveStoreResultDTO;
+import umc.spring.web.dto.ReviewResponseDTO.ReviewAddResultDTO;
+import umc.spring.web.dto.StoreResponseDTO.RegResultDTO;
 
 import javax.validation.Valid;
 
+import static umc.spring.web.dto.MissionRequestDTO.*;
 import static umc.spring.web.dto.MissionResponseDTO.*;
 import static umc.spring.web.dto.ReviewRequestDTO.*;
 import static umc.spring.web.dto.StoreRequestDTO.*;
@@ -33,30 +31,28 @@ import static umc.spring.web.dto.StoreRequestDTO.*;
 public class StoreRestController {
 
     private final StoreCommandService storeCommandService;
-    private final ReviewCommandService reviewCommandService;
-    private final MissionCommandService missionCommandService;
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public ApiResponse<SaveStoreResultDTO> saveStore(@RequestBody @Valid SaveStoreDTO saveStoreDTO) {
-        Store store = storeCommandService.saveStore(saveStoreDTO);
-        return ApiResponse.of(SuccessStatus._CREATED, StoreConverter.toSaveStoreResultDTO(store));
+    public ApiResponse<RegResultDTO> register(@RequestBody @Valid RegDTO regDTO) {
+        Store store = storeCommandService.register(regDTO);
+        return ApiResponse.of(SuccessStatus._CREATED, StoreConverter.toRegResultDTO(store));
     }
 
     @PostMapping("/{storeId}/reviews")
     @ResponseStatus(HttpStatus.CREATED)
-    public ApiResponse<AddReviewResultDTO> addReview(@PathVariable @ExistStore Long storeId,
-                                                     @RequestBody @Valid AddReviewDTO addReviewDTO) {
+    public ApiResponse<ReviewAddResultDTO> addReview(@PathVariable @ExistStore Long storeId,
+                                                     @RequestBody @Valid ReviewAddDTO reviewAddDTO) {
 
-        Review review = reviewCommandService.addReview(storeId, addReviewDTO);
-        return ApiResponse.of(SuccessStatus._CREATED, ReviewConverter.toAddReviewResultDTO(review));
+        Review review = storeCommandService.addReview(storeId, reviewAddDTO);
+        return ApiResponse.of(SuccessStatus._CREATED, ReviewConverter.toReviewAddResultDTO(review));
     }
 
     @PostMapping("/{storeId}/missions")
     @ResponseStatus(HttpStatus.CREATED)
-    public ApiResponse<AddMissionResultDTO> addMission(@PathVariable @ExistStore Long storeId,
-                                                       @RequestBody @Valid AddMissionDTO addMissionDTO) {
-        Mission mission = missionCommandService.addMission(storeId, addMissionDTO);
-        return ApiResponse.of(SuccessStatus._CREATED, MissionConverter.toAddMissionResultDTO(mission));
+    public ApiResponse<MissionAddResultDTO> addMission(@PathVariable @ExistStore Long storeId,
+                                                       @RequestBody @Valid MissionAddDTO missionAddDTO) {
+        Mission mission = storeCommandService.addMission(storeId, missionAddDTO);
+        return ApiResponse.of(SuccessStatus._CREATED, MissionConverter.toMissionAddResultDTO(mission));
     }
 }
