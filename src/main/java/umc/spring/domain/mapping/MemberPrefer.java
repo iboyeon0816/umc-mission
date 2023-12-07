@@ -27,7 +27,7 @@ public class MemberPrefer extends BaseEntity {
 
     public void setMember(Member member) {
         if (this.member != null) {
-            member.getMemberPrefers().remove(this);
+            this.member.getMemberPrefers().remove(this);
         }
 
         this.member = member;
