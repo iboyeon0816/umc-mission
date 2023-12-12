@@ -9,6 +9,7 @@ import umc.spring.converter.MemberPreferConverter;
 import umc.spring.domain.FoodType;
 import umc.spring.domain.Member;
 import umc.spring.domain.Mission;
+import umc.spring.domain.enums.MissionStatus;
 import umc.spring.domain.mapping.AssignedMission;
 import umc.spring.domain.mapping.MemberPrefer;
 import umc.spring.exception.ex.MemberException;
@@ -50,6 +51,25 @@ public class MemberCommandServiceImpl implements MemberCommandService {
         setMemberAndMissionToAM(memberId, challengeDTO.getMissionId(), am);
 
         return assignedMissionRepository.save(am);
+    }
+
+    @Override
+    public void completeMission(Long memberId, Long missionId) {
+        AssignedMission assignedMission = assignedMissionRepository.findById(missionId)
+                .orElseThrow(() -> new MissionException(ErrorStatus.MISSION_NOT_FOUND));
+
+        Member member = memberRepository.findById(memberId)
+                .orElseThrow(() -> new MemberException(ErrorStatus.MEMBER_NOT_FOUND));
+
+        if (assignedMission.getMember() != member) {
+            throw new MissionException(ErrorStatus.MISSION_INVALID_ACCESS);
+        }
+
+        if (assignedMission.getStatus() == MissionStatus.COMPLETED) {
+            throw new MissionException(ErrorStatus.MISSION_ALREADY_COMPLETED);
+        }
+
+        assignedMission.complete();
     }
 
     private void setFoodTypes(List<Long> foodTypeIds, Member member) {

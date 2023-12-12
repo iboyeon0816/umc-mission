@@ -74,6 +74,24 @@ public class MemberRestController {
         return ApiResponse.onSuccess(AssignedMissionConverter.toAMDetailListDTO(missionPage));
     }
 
+    @PatchMapping("/{memberId}/missions/{missionId}")
+    @Operation(
+            summary = "특정 멤버의 미션 완료 처리 API",
+            description = "특정 멤버의 미션을 완료(성공) 처리하는 API입니다."
+    )
+    @ApiResponses({
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "COMMON200", description = "OK, 성공")
+    })
+    @Parameters({
+            @Parameter(name = "memberId", description = "멤버의 아이디"),
+            @Parameter(name = "missionId", description = "미션의 아이디")
+    })
+    public ApiResponse<Object> completeMission(@PathVariable Long memberId,
+                                                    @PathVariable Long missionId) {
+        memberCommandService.completeMission(memberId, missionId);
+        return ApiResponse.onSuccess(null);
+    }
+
     @GetMapping("/{memberId}/reviews")
     @Operation(
             summary = "특정 멤버의 리뷰 목록 조회 API",

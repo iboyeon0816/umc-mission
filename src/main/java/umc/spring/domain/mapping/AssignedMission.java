@@ -53,4 +53,9 @@ public class AssignedMission extends BaseEntity {
         this.member = member;
         member.getAssignedMissions().add(this);
     }
+
+    public void complete() {
+        this.status = MissionStatus.COMPLETED;
+        this.success = true;
+    }
 }
