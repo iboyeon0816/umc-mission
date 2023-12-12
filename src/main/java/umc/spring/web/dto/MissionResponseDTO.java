@@ -1,5 +1,6 @@
 package umc.spring.web.dto;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -64,11 +65,11 @@ public class MissionResponseDTO {
     @NoArgsConstructor
     @AllArgsConstructor
     public static class AMDetailDTO {
+        @JsonInclude(value = JsonInclude.Include.NON_NULL)
         private Boolean success;
         private Integer price;
         private Integer point;
         private PointType pointType;
-        private LocalDate deadline;
-        private LocalDate createdAt;
+        private String storeName;
     }
 }

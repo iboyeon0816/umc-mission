@@ -6,7 +6,6 @@ import umc.spring.web.dto.MemberResponseDTO.AssignedMissionDTO;
 import umc.spring.web.dto.MissionResponseDTO.AMDetailDTO;
 import umc.spring.web.dto.MissionResponseDTO.AMDetailListDTO;
 
-import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -43,8 +42,7 @@ public class AssignedMissionConverter {
                 .price(am.getMission().getPrice())
                 .point(am.getMission().getPoint())
                 .pointType(am.getMission().getPointType())
-                .deadline(am.getMission().getDeadline())
-                .createdAt(LocalDate.from(am.getCreatedAt()))
+                .storeName(am.getMission().getStore().getName())
                 .build();
     }
 }
