@@ -16,12 +16,14 @@ import umc.spring.converter.MemberConverter;
 import umc.spring.converter.ReviewConverter;
 import umc.spring.domain.Member;
 import umc.spring.domain.Review;
+import umc.spring.domain.enums.MissionStatus;
 import umc.spring.domain.mapping.AssignedMission;
 import umc.spring.service.member.MemberCommandService;
 import umc.spring.service.member.MemberQueryService;
 import umc.spring.web.dto.MemberRequestDTO.JoinDTO;
 import umc.spring.web.dto.MemberResponseDTO.JoinResultDTO;
 import umc.spring.web.dto.MissionRequestDTO.ChallengeDTO;
+import umc.spring.web.dto.MissionResponseDTO.AMDetailListDTO;
 import umc.spring.web.dto.ReviewResponseDTO.ReviewDetailListDTO;
 
 import javax.validation.Valid;
@@ -49,6 +51,27 @@ public class MemberRestController {
 
         AssignedMission assignedMission = memberCommandService.addMission(memberId, challengeDTO);
         return ApiResponse.onSuccess(AssignedMissionConverter.toAssignedMissionDTO(assignedMission));
+    }
+
+    @GetMapping("/{memberId}/missions")
+    @Operation(
+            summary = "특정 멤버의 미션 목록 조회 API",
+            description = "특정 멤버의 미션 목록을 조회하는 API이며, 조회할 미션의 상태를 지정해야 합니다. " +
+                    "페이징이 포함되어 있습니다."
+    )
+    @ApiResponses({
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "COMMON200", description = "OK, 성공")
+    })
+    @Parameters({
+            @Parameter(name = "memberId", description = "멤버의 아이디"),
+            @Parameter(name = "status", description = "미션의 진행 상태 (PROCEEDING, COMPLETED)"),
+            @Parameter(name = "page", description = "페이지 번호")
+    })
+    public ApiResponse<AMDetailListDTO> getMissions(@PathVariable Long memberId,
+                                                    @RequestParam MissionStatus status,
+                                                    @PageCheck Integer page) {
+        Page<AssignedMission> missionPage = memberQueryService.getMissions(memberId, status, page);
+        return ApiResponse.onSuccess(AssignedMissionConverter.toAMDetailListDTO(missionPage));
     }
 
     @GetMapping("/{memberId}/reviews")
