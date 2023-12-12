@@ -1,8 +1,15 @@
 package umc.spring.converter;
 
+import org.springframework.data.domain.Page;
 import umc.spring.domain.Mission;
 import umc.spring.web.dto.MissionRequestDTO.MissionAddDTO;
 import umc.spring.web.dto.MissionResponseDTO.MissionAddResultDTO;
+
+import java.time.LocalDate;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import static umc.spring.web.dto.MissionResponseDTO.*;
 
 public class MissionConverter {
 
@@ -22,4 +29,28 @@ public class MissionConverter {
                 .build();
     }
 
+    public static MissionDetailListDTO toMissionDetailListDTO(Page<Mission> missionPage) {
+        List<MissionDetailDTO> missionDetailDTOS = missionPage.getContent().stream()
+                .map(MissionConverter::toMissionDetailDTO)
+                .collect(Collectors.toList());
+
+        return MissionDetailListDTO.builder()
+                .isFirst(missionPage.isFirst())
+                .isLast(missionPage.isLast())
+                .totalPages(missionPage.getTotalPages())
+                .totalElements(missionPage.getTotalElements())
+                .listSize(missionDetailDTOS.size())
+                .missionDetailDTOS(missionDetailDTOS)
+                .build();
+    }
+
+    public static MissionDetailDTO toMissionDetailDTO(Mission mission) {
+        return MissionDetailDTO.builder()
+                .price(mission.getPrice())
+                .point(mission.getPoint())
+                .pointType(mission.getPointType())
+                .deadline(mission.getDeadline())
+                .createdAt(LocalDate.from(mission.getCreatedAt()))
+                .build();
+    }
 }
