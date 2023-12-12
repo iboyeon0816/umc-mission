@@ -25,7 +25,11 @@ public enum ErrorStatus {
     ALREADY_ASSIGNED_MISSION(HttpStatus.BAD_REQUEST, "MEMBER4002", "이미 할당된 미션입니다"),
 
     // MISSION
-    MISSION_NOT_FOUND(HttpStatus.BAD_REQUEST, "MISSION4001", "해당하는 미션이 존재하지 않습니다");
+    MISSION_NOT_FOUND(HttpStatus.BAD_REQUEST, "MISSION4001", "해당하는 미션이 존재하지 않습니다"),
+
+    // PAGE
+    PAGE_REQUIRED(HttpStatus.BAD_REQUEST, "PAGE4001", "페이지는 필수 입력값입니다."),
+    PAGE_NOT_POSITIVE(HttpStatus.BAD_REQUEST, "PAGE4002", "페이지 값은 양수이어야 합니다.");
 
     private final HttpStatus httpStatus;
     private final String code;
