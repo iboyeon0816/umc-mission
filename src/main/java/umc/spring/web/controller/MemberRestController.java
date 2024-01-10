@@ -86,7 +86,7 @@ public class MemberRestController {
             @Parameter(name = "memberId", description = "멤버의 아이디"),
             @Parameter(name = "missionId", description = "미션의 아이디")
     })
-    public ApiResponse<Object> completeMission(@PathVariable Long memberId,
+    public ApiResponse<Void> completeMission(@PathVariable Long memberId,
                                                     @PathVariable Long missionId) {
         memberCommandService.completeMission(memberId, missionId);
         return ApiResponse.onSuccess(null);
